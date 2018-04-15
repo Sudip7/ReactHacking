@@ -8,7 +8,7 @@ const Root = () => {
   const routeComponents = routes.map(({ path, component, exact }, key) => {
     let routeComponent = null;
     if (exact && exact === true) {
-      routeComponent = <Route exact path={path} component={component} />;
+      routeComponent = <Route exact path={path} component={component} key={key} />;
     } else {
       routeComponent = <Route path={path} component={component} />;
     }
