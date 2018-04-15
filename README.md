@@ -1,2 +1,0 @@
-# ReactHacking
-Created with CodeSandbox
