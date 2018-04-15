@@ -4,7 +4,7 @@ import axios from "axios";
 
 const baseURL = "https://api.github.com/repos/facebook";
 
-class Detail extends React.Component {
+class DetailBook extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,6 +16,10 @@ class Detail extends React.Component {
   }
 
   fetchFeed(type) {
+    if (this.props.match.params.repo === "") {
+      // empty repo name, bail out!
+      return;
+    }
     return axios.get(`${baseURL}/${this.props.match.params.repo}/${type}`);
   }
 
@@ -132,4 +136,4 @@ class Detail extends React.Component {
   }
 }
 
-export default Detail;
+export default DetailBook;

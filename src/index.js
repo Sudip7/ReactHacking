@@ -10,7 +10,7 @@ const Root = () => {
     if (exact && exact === true) {
       routeComponent = <Route exact path={path} component={component} key={key} />;
     } else {
-      routeComponent = <Route path={path} component={component} />;
+      routeComponent = <Route path={path} component={component} key={key}/>;
     }
     return routeComponent;
   });
