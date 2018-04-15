@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import axios from "axios";
 
 const baseURL = "https://api.github.com/repos/facebook";
@@ -27,14 +27,14 @@ class Detail extends React.Component {
         this.fetchFeed("pulls")
       ])
       .then(
-        axios.spread((a, b, c) => {
-          console.log(a, b, c);
-          this.setState({
-            commits: a.data,
-            forks: b.data,
-            pulls: c.data
-          });
-        })
+      axios.spread((a, b, c) => {
+        console.log(a, b, c);
+        this.setState({
+          commits: a.data,
+          forks: b.data,
+          pulls: c.data
+        });
+      })
       );
     // this.setState({
     //   commits: [
@@ -109,6 +109,13 @@ class Detail extends React.Component {
     }
     return (
       <div>
+        <p>
+          You are here:&nbsp;&nbsp;
+          <NavLink to="/" activeClassName="active">
+            Home
+          </NavLink>{" "}
+          > {this.props.match.params.repo}
+        </p>
         <button onClick={this.buttonClicked.bind(this, "commits")}>
           Show Commits
         </button>
