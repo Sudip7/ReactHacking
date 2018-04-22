@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import { describe, it, expect } from "../../tester/runner";
 
-const List = require("./List").default;
+const List = require("../src/pages/List").default;
 
 // https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/testing.md
 // test case for List component. Here we have one test method in the form
@@ -16,6 +16,7 @@ describe("List", () => {
         <List />
       </MemoryRouter>
     );
+    //"li" no of list elements in List component.
     const repos = TestUtils.scryRenderedDOMComponentsWithTag(rendered, "li");
     expect(repos.length).toEqual(3);
   });

@@ -4,22 +4,24 @@ import axios from "axios";
 
 const baseURL = "https://api.github.com/repos/facebook";
 
-class DetailBook extends React.Component {
+class Detail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       commits: [],
       forks: [],
       pulls: [],
-      view: ""
+      view: "commits"
     };
   }
 
   fetchFeed(type) {
+    //console.log("test", this.props.match.params.repo);
     if (this.props.match.params.repo === "") {
       // empty repo name, bail out!
       return;
     }
+    console.log("test", this.props.match.params.repo);
     return axios.get(`${baseURL}/${this.props.match.params.repo}/${type}`);
   }
 
@@ -32,11 +34,10 @@ class DetailBook extends React.Component {
       ])
       .then(
       axios.spread((a, b, c) => {
-        console.log(a, b, c);
         this.setState({
-          commits: a.data,
-          forks: b.data,
-          pulls: c.data
+          commits: (a && a.data) || [],
+          forks: (b && b.data) || [],
+          pulls: (c && c.data) || []
         });
       })
       );
@@ -136,4 +137,4 @@ class DetailBook extends React.Component {
   }
 }
 
-export default DetailBook;
+export default Detail;
