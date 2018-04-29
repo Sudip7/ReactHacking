@@ -2,6 +2,7 @@ import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { MemoryRouter } from "react-router-dom";
+import TestUtils from "react-dom/test-utils";
 
 import { describe, it, expect } from "../../tester/runner";
 
@@ -40,5 +41,45 @@ describe("Detail", () => {
         .dive()
         .instance().state.view
     ).toEqual("commits");
+  });
+
+  it("shows forks when the button is tapped", () => {
+    const rendered = shallow(
+      <MemoryRouter>
+        <Detail match={{ params: { repo: "" } }} />
+      </MemoryRouter>
+    );
+
+    const testDetail = rendered.find(Detail).dive();
+    testDetail
+      .find("button")
+      .at(1)
+      .simulate("click");
+
+    expect(testDetail.instance().state.view).toEqual("forks");
+  });
+
+  it("fetches forks from GitHub", () => {
+    const rendered = shallow(
+      <MemoryRouter>
+        <Detail match={{ params: { repo: "react" } }} />
+      </MemoryRouter>
+    );
+   
+   // here MeomryRouter is the  outer component. Need to find Detail component first
+   // then do a dive to find button --> click --> update the render function
+   // --> have to set Timout in order to wait the render to do it's job. Otherwise length of
+   // each Array would be zero
+    const testDetail = rendered.find(Detail).dive();
+    testDetail
+      .find("button")
+      .at(1)
+      .simulate("click");
+
+    rendered.update();
+    setTimeout(() => {
+      expect(testDetail.instance().state.forks.length).toEqual(30);
+      expect(testDetail.instance().state.commits.length).toEqual(30);
+    }, 10000);
   });
 });
