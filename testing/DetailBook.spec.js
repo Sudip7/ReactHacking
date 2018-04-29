@@ -69,17 +69,16 @@ describe("Detail", () => {
    // here MeomryRouter is the  outer component. Need to find Detail component first
    // then do a dive to find button --> click --> update the render function
    // --> have to set Timout in order to wait the render to do it's job. Otherwise length of
-   // each Array would be zero
     const testDetail = rendered.find(Detail).dive();
     testDetail
       .find("button")
       .at(1)
       .simulate("click");
 
-    rendered.update();
     setTimeout(() => {
       expect(testDetail.instance().state.forks.length).toEqual(30);
       expect(testDetail.instance().state.commits.length).toEqual(30);
+      expect(testDetail.instance().state.pulls.length).toEqual(30)
     }, 10000);
   });
 });
