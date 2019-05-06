@@ -11,7 +11,7 @@
     "enzyme-adapter-react-16": "1.1.1",
     "history": "4.7.2",
     "jest-matchers": "20.0.3",
-    "jest-mock": "22.4.3",
+    "jest-mock": "24.8.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-router": "4.2.0",
